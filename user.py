@@ -23,3 +23,8 @@ class User:
 
     def add_to_travel_time(self, addition):
         self.total_travel_time += addition
+
+    def get_cuurent_time(self):
+        return self.total_travel_time
+
+

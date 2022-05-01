@@ -1,8 +1,9 @@
 from junction_file_module import list_of_junctions
 from user import User
+from trafic_light import TrafficLight
 from anytree import Node, RenderTree
 from anytree.exporter import DotExporter
-
+import queue
 try:
     KfarSabe, Morasha, Glilot, Yarkon, BarIlan, AlufSade = list_of_junctions
     KfarSabeN = Node(KfarSabe.get_junction_name())
@@ -15,7 +16,7 @@ try:
     for pre, fill, node in RenderTree(KfarSabeN):
         print("%s%s" % (pre, node.name))
 
-    DotExporter(KfarSabeN).to_picture("S1.png")
+    DotExporter(KfarSabeN).to_picture("RaananaJunctionTree.png")
 
 except ImportError as error:
     print(error)
@@ -25,6 +26,8 @@ except MemoryError as error:
     print(error)
 except NameError as error:
     print(error)
+
+
 
 
 
