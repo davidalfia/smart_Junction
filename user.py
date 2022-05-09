@@ -1,9 +1,11 @@
 class User:
-    def __init__(self, name, cardinal_direction, priority):
+    def __init__(self, name, cardinal_direction, priority, destination, source):
         self.name = name
         self.social_priority = priority
         self.current_Cardinal_Direction = cardinal_direction
         self.total_travel_time = 0
+        self.dest = destination
+        self.source = source
 
     def print(self):
         print(f'user {self.name} has priority of {self.social_priority}'
@@ -27,4 +29,8 @@ class User:
     def get_cuurent_time(self):
         return self.total_travel_time
 
+    def get_dest(self):
+        return self.dest
 
+    def get_source(self):
+        return self.source

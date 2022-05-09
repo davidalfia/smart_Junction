@@ -5,7 +5,6 @@ class TrafficLight:
         self.green_timer = 1
         self.hit_from = hit_from
         self.traffic_light_directions = {}
-        self.analyze_directions_map(hit_from)
 
     def get_curr_timer(self):
         return self.red_timer
