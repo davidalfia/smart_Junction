@@ -2,10 +2,11 @@ class Junction:
     def __init__(self, name, num_of_lanes, is_smart, *traffic_lights):
         self.name = name
         self.num_of_lanes = num_of_lanes
+        self.is_smart = is_smart
         self.traffic_lights_list = []
         for t in traffic_lights:
             self.traffic_lights_list.append(t)
-        self.is_smart = is_smart
+
 
     def print_junction(self):
         print(f'Junction name {self.name} has {self.num_of_lanes} lanes and is_smart = {self.is_smart}')
