@@ -3,6 +3,8 @@ class Controller:
         self.junction_map = junction_map
         self.path_time = dict()
         self.path_time["AB"] = 10
+        self.path_time["AC"] = 8
+        self.path_time["AD"] = 6
         pass
 
     def add_junction_to_map(self,junction):

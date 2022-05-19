@@ -28,11 +28,16 @@ class Junction:
     def get_junction_name(self):
         return self.name
 
-    def get_traffic_light_by_turn_choice(self, turn):
+    def get_traffic_light_and_next_cd_by_turn_choice(self, turn):
         for t in self.traffic_lights_list:
             if t.has_choice(turn):
                 return t, t.get_next_cd_by_turn(turn)
         return None, None
 
+    def set_is_smart(self, value):
+        self.is_smart = value
+
+    def get_is_smart(self):
+        return self.is_smart
 
 
