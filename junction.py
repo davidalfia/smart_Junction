@@ -1,7 +1,7 @@
 class Junction:
-    def __init__(self, name, num_of_lanes, is_smart, *traffic_lights, **junction_map):
-        self.name = name
-        self.num_of_lanes = num_of_lanes
+    def __init__(self, junction, cd, is_smart, *traffic_lights, **junction_map):
+        self.junction = junction
+        self.from_cd = cd
         self.is_smart = is_smart
         self.junction_map = junction_map
         self.traffic_lights_list = []
@@ -9,7 +9,7 @@ class Junction:
             self.traffic_lights_list.append(t)
 
     def print_junction(self):
-        print(f'Junction name {self.name} has {self.num_of_lanes} lanes and is_smart = {self.is_smart}')
+        print(f'Junction name {self.junction} lanes and is_smart = {self.is_smart}')
         for t in self.traffic_lights_list:
             print(t)
         print(self.junction_map)
@@ -25,8 +25,8 @@ class Junction:
             if t == traffic_light:
                 t.set_timer(new_timer)
 
-    def get_junction_name(self):
-        return self.name
+    def get_hit_from(self):
+        return self.from_cd
 
     def get_traffic_light_and_next_cd_by_turn_choice(self, turn):
         for t in self.traffic_lights_list:
