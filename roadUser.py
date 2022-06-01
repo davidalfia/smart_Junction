@@ -30,3 +30,9 @@ class RoadUser:
 
     def set_current_junction(self,junction):
         self.current_junction = junction
+
+    def get_current_junction_name(self):
+        return self.current_junction
+
+    def restart_travel_time(self):
+        self.travel_time = 0

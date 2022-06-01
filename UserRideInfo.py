@@ -1,9 +1,9 @@
 class UserRideInfo:
-    def __init__(self, destination, source, travelType, numberOfJunctionsAlongPath):
+    def __init__(self, destination, source, travel_type, number_of_unctions_along_path):
         self.destination = destination
         self.source = source
-        self.travelType = travelType
-        self.numberOfJunctionsAlongPath = numberOfJunctionsAlongPath
+        self.travelType = travel_type
+        self.numberOfJunctionsAlongPath = number_of_unctions_along_path
         self._ETA = []
 
     def get_destination(self):
