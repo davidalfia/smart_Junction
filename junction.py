@@ -1,6 +1,6 @@
 class Junction:
     def __init__(self, junction, cd, is_smart, *traffic_lights, **junction_map):
-        self.junction = junction
+        self.name = junction
         self.from_cd = cd
         self.is_smart = is_smart
         self.junction_map = junction_map
@@ -8,11 +8,11 @@ class Junction:
         for t in traffic_lights:
             self.traffic_lights_list.append(t)
 
-    def print_junction(self):
-        print(f'Junction name {self.junction} lanes and is_smart = {self.is_smart}')
-        for t in self.traffic_lights_list:
-            print(t)
-        print(self.junction_map)
+    def __str__(self):
+        return f'Junction name {self.name} hit from {self.from_cd}  and is_smart = {self.is_smart}'
+
+    def get_traffic_list(self):
+        return self.traffic_lights_list
 
     def get_next_junction_by_cd(self, cd):
         return self.junction_map[cd]
@@ -30,9 +30,9 @@ class Junction:
 
     def get_traffic_light_and_next_cd_by_turn_choice(self, turn):
         for t in self.traffic_lights_list:
-            if t.has_choice(turn):
-                return t, t.get_next_cd_by_turn(turn)
-        return None, None
+            if t.has(turn):
+                return t, t.get_next_cd(turn)
+        return None
 
     def set_is_smart(self, value):
         self.is_smart = value

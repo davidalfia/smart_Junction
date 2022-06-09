@@ -3,8 +3,9 @@ from junction import Junction
 
 
 class Controller:
-    def __init__(self, **junction_map):
+    def __init__(self, junction_map, users):
         self.junction_map = junction_map
+        self.users = users
         self.path_time = dict()
         self.path_time["AB"] = 1090
         self.path_time["AC"] = 996
@@ -17,6 +18,12 @@ class Controller:
 
     def set_map_from_xl_file(self):
         pass
+
+    def get_current_sub_junction(self, junction, cd):
+        J = self.junction_map["A"]
+        for s in J:
+            if s.from_cd == cd:
+                return s
 
     def add_user_red_time(self):
         pass
@@ -47,47 +54,7 @@ class Controller:
             return self.path_time[pair]
 
     def set_map(self):
-        A1 = TrafficLight("A1", 100, 1, right="south")
-        A2 = TrafficLight("A2", 100, 1, left="north", straight="east")
-        A3 = TrafficLight("A3", 100, 1, right="west", straight="south")
-        A4 = TrafficLight("A4", 100, 1, right="north", straight="west")
-        A5 = TrafficLight("A5", 100, 1, left="south")
-        A6 = TrafficLight("A6", 100, 1, right="east", straight="north")
-
-        B1 = TrafficLight("B1", 100, 1, straight="south", left="east")
-        C1 = TrafficLight("C1", 100, 1, straight="north", right="east")
-
-        D2 = TrafficLight("D1", 100, 1, straight="west", right="south")
-
-        E2 = TrafficLight("E1", 100, 1, right="east", left="west")
-
-        Aeast = Junction("A", "east", False, A1, A2, south="B", north="C", east="E", west=None)
-        Anorth = Junction("A", "north", False, A3, south="B", north="C", east="E", west=None)
-        Awest = Junction("A", "west", False, A4, A5, south="B", north="C", east="E", west=None)
-        Asouth = Junction("A", "south", False, A6, south="B", north="C", east="E", west=None)
-        A = [Aeast, Anorth, Awest, Asouth]
-        Bwest = Junction("B", "west", False, B1, south=None, north=None, east=None, west=None)
-        B = [Bwest]
-        Csouth = Junction("C", "south", False, C1, south=None, north=None, east="D", west=None)
-        C = [Csouth]
-        Deast = Junction("D", "east", False, D2, south="E", north=None, east=None, west=None)
-        D = [Deast]
-        Esouth = Junction("E", "south", False, E2, south=None, north=None, east=None, west=None)
-        E = [Esouth]
-
-        c = Controller(A=A,
-                       B=B,
-                       C=C,
-                       D=D,
-                       E=E)
-
-        self.junction_map = {
-            "A": A,
-            "B": B,
-            "C": C,
-            "D": D,
-            "E": E
-        }
+        pass
 
     def build_users(self):
         pass
@@ -97,3 +64,33 @@ class Controller:
 
     def display_result(self):
         pass
+
+    def get_junction_side(self,junction,current_cd):
+        for j in junction:
+            if j.from_cd == current_cd:
+                return j
+
+    def drive(self, is_smart):
+        choices = ["left","right","right"]
+        idx = 0
+        for user in self.users:
+            at_junction_name = user.get_current_junction_name()
+            print(f'start_at {at_junction_name}')
+            while at_junction_name is not user.dest:
+                current_user_cd = user.get_curr_cardinal_direction()
+                junction = self.junction_map[at_junction_name]
+                turn_choice = choices[idx]
+                junction_side = self.get_junction_side(junction, current_user_cd)
+                print(junction_side)
+                traffic_Light,next_user_cd = junction_side.get_traffic_light_and_next_cd_by_turn_choice(turn_choice)
+                user.set_curr_cardinal_direction(next_user_cd)
+                at_junction_name = junction_side.get_next_junction_by_cd(next_user_cd)
+                traffic_Light.push_user_to_traffic_light(user)
+                traffic_Light.get_curr_timer_red(user, is_smart)
+                traffic_Light.pop_user_from_traffic_light()
+                print(f'turn {choices[idx]}')
+                print(f'turn to cd  {next_user_cd}')
+                user.set_current_junction(at_junction_name)
+                idx = idx+1
+                print(at_junction_name)
+                print(user)

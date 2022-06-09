@@ -7,13 +7,76 @@ from junction import Junction
 from roadUser import RoadUser
 from controller import Controller
 try:
+    A1 = TrafficLight("A1", 100, 1, left="north", straight="east")
+    A2 = TrafficLight("A2", 100, 1, right="south")
+    A3 = TrafficLight("A3", 100, 1, right="west", straight="south")
+    A4 = TrafficLight("A4", 100, 1, right="north", straight="west")
+    A5 = TrafficLight("A5", 100, 1, left="south")
+    A6 = TrafficLight("A6", 100, 1, right="east", straight="north")
+    Aeast = Junction("A", "east", False, A1, A2, south="B", north="C", east="E", west=None)
+    Anorth = Junction("A", "north", False, A3, south="B", north="C", east="E", west=None)
+    Awest = Junction("A", "west", False, A4, A5, south="B", north="C", east="E", west=None)
+    Asouth = Junction("A", "south", False, A6, south="B", north="C", east="E", west=None)
+    A = [Aeast, Anorth, Awest, Asouth]
 
-    c = Controller()
-    c.set_map()
-    c.build_users()
-    c.start_simulation(False)
-    c.start_simulation(True)
-    c.display_result()
+    B1 = TrafficLight("B1", 100, 1, left="south", right="north")
+    B2 = TrafficLight("B2", 100, 1, straight="north", right="east")
+    B3 = TrafficLight("B3", 100, 1, straight="south", left="east")
+    Bwest = Junction("B", "west", False, B1, south=None, north="A", east=None, west=None)
+    Bsouth = Junction("B", "south", False, B2, south=None, north="A", east=None, west=None)
+    Bnorth = Junction("B", "north", False, B3, south=None, north="A", east=None, west=None)
+    B = [Bwest, Bsouth, Bnorth]
+
+    C1 = TrafficLight("C1", 100, 1, straight="north", right="east")
+    C2 = TrafficLight("C3", 100, 1, left="south", right="north")
+    C3 = TrafficLight("C2", 100, 1, straight="south", left="east")
+    Csouth = Junction("C", "south", False, C3, south=None, north=None, east="D", west=None)
+    Cwest = Junction("C", "west", False, C2, south=None, north=None, east="D", west=None)
+    Cnorth = Junction("C", "north", False, C1, south=None, north=None, east="D", west=None)
+    C = [Csouth,Cwest,Cnorth]
+
+    D1 = TrafficLight("D1", 100, 1, left="south", straight="west")
+    D2 = TrafficLight("D2", 100, 1, straight="east", right="south")
+    D3 = TrafficLight("D3", 100, 1,  right="east", left="west")
+    Dwest = Junction("D", "west", False, D1, south="E", north=None, east=None, west=None)
+    Deast = Junction("D", "east", False, D2, south="E", north=None, east=None, west=None)
+    Dsouth = Junction("D", "south", False, D3, south="E", north=None, east=None, west=None)
+    D = [Deast,Dwest,Dsouth]
+
+    E1 = TrafficLight("E1", 100, 1, right="north", straight="west")
+    E2 = TrafficLight("E2", 100, 1, right="east", left="west")
+    E3 = TrafficLight("E2", 100, 1, straight="east",left="north")
+    Ewest = Junction("E", "west", False, E1, south=None, north=None, east=None, west=None)
+    Esouth = Junction("E", "south", False, E2, south=None, north=None, east=None, west=None)
+    Eeast = Junction("E", "east", False, E3, south=None, north=None, east=None, west=None)
+    E = [Esouth,Ewest,Eeast]
+
+    junction_map = {
+        "A": A,
+        "B": B,
+        "C": C,
+        "D": D,
+        "E": E
+    }
+
+    users = []
+    u1 = RoadUser("david","east",8,"A","E")
+    u2 = RoadUser("ran","east",2,"A","D")
+    u3 = RoadUser("dana","east",3,"A","D")
+    users.append(u1)
+
+    c = Controller(junction_map, users)
+    c.drive(True)
+
+except ImportError as error:
+    print(error)
+except IndexError as error:
+    print(error)
+except MemoryError as error:
+    print(error)
+except NameError as error:
+    print(error)
+
 
     """"
     j = c.get_junction_hit_from_by_junction_name_and_cardinal_direction("A")
@@ -315,16 +378,6 @@ try:
     print("Dana end------------------------------------")
     print("--------------end simulation-----------------")
     """
-
-
-except ImportError as error:
-    print(error)
-except IndexError as error:
-    print(error)
-except MemoryError as error:
-    print(error)
-except NameError as error:
-    print(error)
 
 
 """

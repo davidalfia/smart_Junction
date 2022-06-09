@@ -3,18 +3,18 @@ from roadUser import RoadUser
 
 
 class TrafficLight:
-    def __init__(self, name, red_timer, green_timer,**options):
+    def __init__(self, name, red_timer, green_timer, **options):
         self.name = name
         self.red_timer = red_timer
         self.options = options
         self.green_timer = green_timer
         self.line = Queue()
 
-    def get_curr_timer_red(self, priority, is_smart):
+    def get_curr_timer_red(self, user, is_smart):
         if not is_smart:
-            return self.red_timer
+            user.add_travel_time(self.red_timer)
         else:
-            return 100 - ((priority-1)*10)
+            user.add_travel_time(self.red_timer - ((user.priority-1)*10))
 
     def set_curr_timer_green(self, new_timer):
         self.green_timer = new_timer
@@ -38,10 +38,13 @@ class TrafficLight:
     def get_options(self):
         return self.options
 
-    def has_choice(self, turn):
+    def has(self, turn):
         if turn in self.options.keys():
             return True
         return False
+
+    def get_next_cd(self,turn):
+        return self.options[turn]
 
     def get_next_cd_by_turn(self, turn):
         return self.options[turn]
