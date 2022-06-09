@@ -75,22 +75,23 @@ class Controller:
         idx = 0
         for user in self.users:
             at_junction_name = user.get_current_junction_name()
-            print(f'start_at {at_junction_name}')
             while at_junction_name is not user.dest:
                 current_user_cd = user.get_curr_cardinal_direction()
                 junction = self.junction_map[at_junction_name]
                 turn_choice = choices[idx]
                 junction_side = self.get_junction_side(junction, current_user_cd)
-                print(junction_side)
+                #print(junction_side)
                 traffic_Light,next_user_cd = junction_side.get_traffic_light_and_next_cd_by_turn_choice(turn_choice)
                 user.set_curr_cardinal_direction(next_user_cd)
                 at_junction_name = junction_side.get_next_junction_by_cd(next_user_cd)
                 traffic_Light.push_user_to_traffic_light(user)
                 traffic_Light.get_curr_timer_red(user, is_smart)
                 traffic_Light.pop_user_from_traffic_light()
-                print(f'turn {choices[idx]}')
-                print(f'turn to cd  {next_user_cd}')
+                #print(f'turn {choices[idx]}')
+                #print(f'turn to cd  {next_user_cd}')
                 user.set_current_junction(at_junction_name)
                 idx = idx+1
-                print(at_junction_name)
-                print(user)
+                if idx == 3:
+                    idx = 0
+                #print(at_junction_name)
+                print(f'--------{user}--------')

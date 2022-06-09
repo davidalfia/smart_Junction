@@ -61,9 +61,11 @@ try:
 
     users = []
     u1 = RoadUser("david","east",8,"A","E")
-    u2 = RoadUser("ran","east",2,"A","D")
-    u3 = RoadUser("dana","east",3,"A","D")
+    u2 = RoadUser("ran","east",2,"A","E")
+    u3 = RoadUser("dana","east",3,"A","E")
     users.append(u1)
+    users.append(u2)
+    users.append(u3)
 
     c = Controller(junction_map, users)
     c.drive(True)
