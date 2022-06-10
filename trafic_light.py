@@ -3,7 +3,7 @@ from roadUser import RoadUser
 
 
 class TrafficLight:
-    def __init__(self, name, red_timer, green_timer,**options):
+    def __init__(self, name, red_timer, green_timer, *options):
         self.name = name
         self.red_timer = red_timer
         self.options = options
@@ -19,12 +19,15 @@ class TrafficLight:
     def set_curr_timer_green(self, new_timer):
         self.green_timer = new_timer
 
+    def __str__(self):
+        return f'Traffic: {self.name} with red/green timer: {self.red_timer}/{self.green_timer} with options:{str(self.options)}'
+        # return 'traffic:' + str(self.name) + ' ,with red timer/green timer:' + str(self.red_timer) + '/' + str(self.green_timer) + ' ,options:' + str(self.options)
+        # return f'traffic_light {self.name} has current stop light timer of {self.red_timer} '
+        #         f'and has directions: {self.options}'
+
     def get__cardinal_direction_by_turn_choice(self, turn_direction):
         return self.options[turn_direction]
 
-    def __str__(self):
-        return (f'traffic_light {self.name} has current stop light timer of {self.red_timer} '
-                f'and has directions: {self.options}')
 
     def push_user_to_traffic_light(self, road_user):
         print(f'traffic_light {self.name} got {road_user.name} in line')
