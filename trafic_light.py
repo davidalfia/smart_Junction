@@ -31,7 +31,7 @@ class TrafficLight:
         self.line.put_nowait(road_user)
 
     def pop_user_from_traffic_light(self):
-        u = self.line.get_nowait()
+        u = self.line.get()
         print(f'{u.name} passed {self.name} traffic_light')
         return u
 
@@ -51,3 +51,25 @@ class TrafficLight:
 
     def display_current_queue_size(self):
         print(self.line.qsize())
+
+    def green(self):
+        passing_in_sec = 3
+        list_of_users = []
+        num_of_drivers_to_pass = self.line.qsize()-1
+        for i in range(0, num_of_drivers_to_pass):
+            u = self.pop_user_from_traffic_light()
+            list_of_users.append(u)
+        u = self.pop_user_from_traffic_light()
+        list_of_users.append(u)
+        avg = 0
+        sum = 0
+        for user in list_of_users:
+            print(user.get_social_priority())
+            print(user.name)
+            sum += user.get_social_priority()
+            print(sum)
+        avg = sum / len(list_of_users)
+
+        for user in list_of_users:
+            pass
+

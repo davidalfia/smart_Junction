@@ -1,11 +1,12 @@
 class RoadUser:
-    def __init__(self, name, cardinal_direction, priority, start_at, dest):
+    def __init__(self, name, cardinal_direction, priority, start_at, dest,choices):
         self.name = name
         self.cardinal_direction = cardinal_direction
         self.priority = priority
         self.travel_time = 0
         self.current_junction = start_at
-        self.dest = dest;
+        self.dest = dest
+        self.choices = choices
 
     def __str__(self):
         return f'name = {self.name}, priority = {self.priority}, ' \
@@ -35,7 +36,7 @@ class RoadUser:
     def get_curr_travel_time(self):
         return self.travel_time
 
-    def set_current_junction(self,junction):
+    def set_current_junction(self, junction):
         self.current_junction = junction
 
     def get_current_junction_name(self):

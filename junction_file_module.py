@@ -1,5 +1,5 @@
 import openpyxl
-from junction import Junction
+from sub_junction import Junction
 from trafic_light import TrafficLight
 
 min_row = 2
